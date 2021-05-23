@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Modules">
+          <Key>
+            <PropertyRef Name="moduleID" />
+          </Key>
+          <Property Name="moduleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="moduleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="moduleDec" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ModuleUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="moduleID" Type="int" Nullable="false" />
+          <Property Name="grade" Type="int" />
+        </EntityType>
+        <EntityType Name="Sections">
+          <Key>
+            <PropertyRef Name="sectionID" />
+          </Key>
+          <Property Name="sectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sectionName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="sectionDec" Type="varchar(max)" />
+          <Property Name="moduleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userSurname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="userEmail" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Administrator" Type="bit" Nullable="false" />
+          <Property Name="userPassword" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ModuleUser_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="1" />
+          <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="moduleID" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="moduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleUser_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ModuleUser" Type="Self.ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sections_Modules">
+          <End Role="Modules" Type="Self.Modules" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Sections" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="moduleID" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="moduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Modules" EntityType="Self.Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ModuleUser" EntityType="Self.ModuleUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sections" EntityType="Self.Sections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ModuleUser_Modules" Association="Self.FK_ModuleUser_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleUser_Users" Association="Self.FK_ModuleUser_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ModuleUser" EntitySet="ModuleUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sections_Modules" Association="Self.FK_Sections_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="moduleID" />
+          </Key>
+          <Property Name="moduleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="moduleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="moduleDec" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Sections" Relationship="Self.FK_Sections_Modules" FromRole="Modules" ToRole="Sections" />
+          <NavigationProperty Name="ModuleUsers" Relationship="Model.FK_ModuleUser_Modules" FromRole="Module" ToRole="ModuleUser" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="sectionID" />
+          </Key>
+          <Property Name="sectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sectionName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="sectionDec" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="moduleID" Type="Int32" />
+          <NavigationProperty Name="Module" Relationship="Self.FK_Sections_Modules" FromRole="Sections" ToRole="Modules" />
+        </EntityType>
+        <Association Name="FK_Sections_Modules">
+          <End Role="Modules" Type="Self.Module" Multiplicity="0..1" />
+          <End Role="Sections" Type="Self.Section" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Modules">
+              <PropertyRef Name="moduleID" />
+            </Principal>
+            <Dependent Role="Sections">
+              <PropertyRef Name="moduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="asplabEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Modules" EntityType="Self.Module" />
+          <EntitySet Name="Sections" EntityType="Self.Section" />
+          <AssociationSet Name="FK_Sections_Modules" Association="Self.FK_Sections_Modules">
+            <End Role="Modules" EntitySet="Modules" />
+            <End Role="Sections" EntitySet="Sections" />
+          </AssociationSet>
+          <EntitySet Name="ModuleUsers" EntityType="Model.ModuleUser" />
+          <EntitySet Name="Users" EntityType="Model.User" />
+          <AssociationSet Name="FK_ModuleUser_Modules" Association="Model.FK_ModuleUser_Modules">
+            <End Role="Module" EntitySet="Modules" />
+            <End Role="ModuleUser" EntitySet="ModuleUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ModuleUser_Users" Association="Model.FK_ModuleUser_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ModuleUser" EntitySet="ModuleUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ModuleUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="moduleID" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int32" />
+          <NavigationProperty Name="Module" Relationship="Model.FK_ModuleUser_Modules" FromRole="ModuleUser" ToRole="Module" />
+          <NavigationProperty Name="User" Relationship="Model.FK_ModuleUser_Users" FromRole="ModuleUser" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userSurname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Administrator" Type="Boolean" Nullable="false" />
+          <Property Name="userPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ModuleUsers" Relationship="Model.FK_ModuleUser_Users" FromRole="User" ToRole="ModuleUser" />
+        </EntityType>
+        <Association Name="FK_ModuleUser_Modules">
+          <End Type="Model.Module" Role="Module" Multiplicity="1" />
+          <End Type="Model.ModuleUser" Role="ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Module">
+              <PropertyRef Name="moduleID" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="moduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ModuleUser_Users">
+          <End Type="Model.User" Role="User" Multiplicity="1" />
+          <End Type="Model.ModuleUser" Role="ModuleUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="ModuleUser">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="asplabEntities">
+          <EntitySetMapping Name="Modules">
+            <EntityTypeMapping TypeName="Model.Module">
+              <MappingFragment StoreEntitySet="Modules">
+                <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+                <ScalarProperty Name="moduleName" ColumnName="moduleName" />
+                <ScalarProperty Name="moduleDec" ColumnName="moduleDec" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="Model.Section">
+              <MappingFragment StoreEntitySet="Sections">
+                <ScalarProperty Name="sectionID" ColumnName="sectionID" />
+                <ScalarProperty Name="sectionName" ColumnName="sectionName" />
+                <ScalarProperty Name="sectionDec" ColumnName="sectionDec" />
+                <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ModuleUsers">
+            <EntityTypeMapping TypeName="Model.ModuleUser">
+              <MappingFragment StoreEntitySet="ModuleUser">
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="moduleID" ColumnName="moduleID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="userSurname" ColumnName="userSurname" />
+                <ScalarProperty Name="userName" ColumnName="userName" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

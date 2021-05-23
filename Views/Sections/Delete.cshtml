@@ -1,0 +1,43 @@
+﻿@model Labaratorinis23.Models.Section
+
+
+<h3>Ar tikrai norite ištrintį sekciją?</h3>
+<div>
+    <h4>Section</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.sectionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sectionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sectionDec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sectionDec)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Module.moduleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Module.moduleName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Grįžti", "Module", "Modules", new { id = ViewBag.id }, null)
+        </div>
+    }
+</div>

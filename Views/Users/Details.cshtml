@@ -1,0 +1,49 @@
+﻿@model Labaratorinis23.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.userName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.userEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.userEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Administrator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Administrator)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.userID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

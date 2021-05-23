@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Labaratorinis23.Models.Section>
+
+<h1>Modulis @ViewBag.Title</h1>
+
+@if (Session["admin"].Equals(true))
+{
+    @Html.ActionLink("Pridėti sekciją", "Create", "Sections", new { id = ViewBag.id }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Pridėti Mokinius", "addStudents", new { id = ViewBag.id }, new { @class = "btn btn-default" })
+}
+
+
+<div class="row">
+    <div class=" col-md-6">
+        @foreach (var item in Model)
+        {
+            <div class="section-div">
+                <h3 class="section-title">@item.sectionName</h3>
+                <p>@item.sectionDec</p>
+                @if (Session["admin"].Equals(true))
+                {
+                    @Html.ActionLink("Koreguoti", "Edit", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Ištrinti", "Delete", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-danger" })
+                }
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        @if (Session["admin"].Equals(false))
+        {
+            <h4>Pažymys: </h4>
+            foreach (var item in ViewBag.Students)
+            {
+                if (Session["userID"].Equals(item.User.userID))
+                {
+                    if (item.grade == null)
+                    {
+                        <span>Pažymys neįrašytas</span>
+                    }
+                    else
+                    {
+                        <span>@item.grade</span>
+                    }
+                }
+            }
+        }
+        else
+        {
+            <h3>Modulio mokiniai</h3>
+            <table class="table">
+                <tr>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>El-paštas</th>
+                    <th>Pažymys</th>
+                </tr>
+                @foreach (var item in ViewBag.Students)
+                {
+                    <tr>
+                        <td>@item.User.userName</td>
+                        <td>@item.User.userSurname</td>
+                        <td>@item.User.userEmail</td>
+                        <td>@item.grade</td>
+                        <td>
+                            @Html.ActionLink("Įrašytį pažymį", "addGrade", new { id = ViewBag.id, id2 = item.ID }) |
+                            @Html.ActionLink("Ištrinti", "deleteStudent", new { id = ViewBag.id, id2 = item.ID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>
+

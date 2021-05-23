@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Labaratorinis23.Models.Module>
+
+@if (Session["admin"].Equals(true))
+{
+    <p style="margin-top: 3rem;">
+        @Html.ActionLink("Sukurti naują modulį", "Create")
+    </p>
+}
+
+
+<div class="row" style="margin-top: 3rem;">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-lg-3 module-class">
+            <h2 class="module-h">@item.moduleName</h2>
+            <p class="module-p">@item.moduleDec</p>
+            @Html.ActionLink("Spustelėkite, kad įvestumėte kursą", "Module", new { id = item.moduleID }, new { @class = "btn btn-primary center-block" })
+            @if (Session["admin"].Equals(true))
+            {
+                @Html.ActionLink("Ištrinti", "Delete", new { id = item.moduleID }, new { @class = "btn btn-danger center-block" })
+            }
+        </div>  
+    }
+</div>
