@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
+using System.Web; 
 using System.Web.Mvc;
 using Labaratorinis23.Models;
 
@@ -46,7 +46,12 @@ namespace Labaratorinis23.Controllers
 
         public ActionResult Logout()
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+
             Session.Clear();
+
             return RedirectToAction("Index");
         }
 

@@ -302,7 +302,7 @@ namespace Labaratorinis23.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult addGrade([Bind(Include = "ID,userID,moduleID,grade")] ModuleUser stud, int id, int id2)
         {
-            if(stud.grade <= 0 || stud.grade >= 10)
+            if(stud.grade <= -1 || stud.grade >= 11)
             {
                 //ViewBag.error = "Pažymys turi būti tarp 0 ir 10";
                 return RedirectToAction("addGrade", new { id, id2 });

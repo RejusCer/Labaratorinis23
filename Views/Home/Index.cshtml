@@ -1,11 +1,4 @@
 ﻿
-<style>
-    .main{
-        margin-top: 6rem;
-        margin-bottom: 6rem;
-    }
-</style>
-
 <div class="main">
     @using (Html.BeginForm())
     {
@@ -17,7 +10,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Slaptaždosi: ", new { @class = "control-label col-md-2" })
+            @Html.Label("Slaptažodis: ", new { @class = "control-label col-md-2" })
             @Html.Password("password")
         </div>
 

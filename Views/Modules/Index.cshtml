@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Labaratorinis23.Models.Module>
 
+
 @if (Session["admin"].Equals(true))
 {
     <p style="margin-top: 3rem;">
@@ -19,6 +20,6 @@
             {
                 @Html.ActionLink("Ištrinti", "Delete", new { id = item.moduleID }, new { @class = "btn btn-danger center-block" })
             }
-        </div>  
+        </div>
     }
 </div>
