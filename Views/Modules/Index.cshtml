@@ -12,13 +12,13 @@
 <div class="row" style="margin-top: 3rem;">
     @foreach (var item in Model)
     {
-        <div class="col-sm-6 col-md-4 col-lg-3 module-class">
+        <div class="col-sm-12 module-class">
             <h2 class="module-h">@item.moduleName</h2>
             <p class="module-p">@item.moduleDec</p>
-            @Html.ActionLink("Spustelėkite, kad įvestumėte kursą", "Module", new { id = item.moduleID }, new { @class = "btn btn-primary center-block" })
+            @Html.ActionLink("Spustelėkite, kad įvestumėte kursą", "Module", new { id = item.moduleID }, new { @class = "btn btn-success center-block" })
             @if (Session["admin"].Equals(true))
             {
-                @Html.ActionLink("Ištrinti", "Delete", new { id = item.moduleID }, new { @class = "btn btn-danger center-block" })
+                @Html.ActionLink("Ištrinti", "Delete", new { id = item.moduleID }, new { @class = "btn btn-outline-danger center-block" })
             }
         </div>
     }

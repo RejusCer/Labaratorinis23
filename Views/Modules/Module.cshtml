@@ -4,13 +4,13 @@
 
 @if (Session["admin"].Equals(true))
 {
-    @Html.ActionLink("Pridėti sekciją", "Create", "Sections", new { id = ViewBag.id }, new { @class = "btn btn-success" })
-    @Html.ActionLink("Pridėti Mokinius", "addStudents", new { id = ViewBag.id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Pridėti sekciją", "Create", "Sections", new { id = ViewBag.id }, new { @class = "btn btn-outline-success" })
+    @Html.ActionLink("Pridėti Mokinius", "addStudents", new { id = ViewBag.id }, new { @class = "btn btn-outline-default" })
 }
 
 
 <div class="row">
-    <div class=" col-md-6">
+    <div class=" col-md-12">
         @foreach (var item in Model)
         {
             <div class="section-div">
@@ -18,13 +18,13 @@
                 <p>@item.sectionDec</p>
                 @if (Session["admin"].Equals(true))
                 {
-                    @Html.ActionLink("Koreguoti", "Edit", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Ištrinti", "Delete", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Koreguoti", "Edit", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-outline-primary" })
+                    @Html.ActionLink("Ištrinti", "Delete", "Sections", new { id = ViewBag.id, id2 = item.sectionID }, new { @class = "btn btn-outline-danger" })
                 }
             </div>
         }
     </div>
-    <div class="col-md-6">
+    <div>
         @if (Session["admin"].Equals(false))
         {
             <h4>Pažymys: </h4>

@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }
 
+.navbar-fixed-top {
+    background-color: lightgreen;
+}
+
 .module-class {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 1rem;
@@ -37,9 +41,10 @@ textarea {
 
 
 .section-title {
-    border-left: 3px solid green;
+    border-left: 3px solid red;
+    border-bottom: 3px solid red;
     padding: 0.8rem;
-    background-color: #ecf8ec;
+    background-color: #ff6a00;
 }
 .section-div {
     margin-bottom: 5rem;

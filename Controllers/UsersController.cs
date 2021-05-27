@@ -46,10 +46,11 @@ namespace Labaratorinis23.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
+            /*
             if (!ValidSession())
             {
                 return RedirectToAction("Index", "Home");
-            }
+            }*/
 
             return View();
         }
